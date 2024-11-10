@@ -7,32 +7,16 @@ import ContactsPage from "./pages/userpage/ContactsPage";
 import UserProfile from "./pages/userpage/ProfilePage";
 import MedicalPage from "./pages/userpage/Medical";
 import StartTrip from "./pages/userpage/StartTrip";
-
-const Navbar = () => {
-  return (
-    <>
-      <p>Navbar</p>
-      <Outlet />
-    </>
-  );
-};
-
-const Dashboard = () => {
-  return (
-    <>
-      <p>Dashboard</p>
-    </>
-  );
-};
+import AuthLoginPage from "./pages/authoritiepage/AuthLoginPage";
+import AuthDashboard from "./pages/authoritiepage/DashboardPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/abc" element={<></>}>
-          {/* <Route path="signup" element={<SignUpPage />} /> */}
+        {/* <Route path="/abc" element={<></>}>
           <Route path="*" element={<p>Not Found</p>} />
-        </Route>
+        </Route> */}
         <Route path="/user/signup" element={<SignUpPage />} />
         <Route path="/user/login" element={<LoginPage />} />
         <Route path="/user/:userId/dashboard" element={<UserDashBoard />} />
@@ -40,6 +24,12 @@ function App() {
         <Route path="/user/:userId/profile" element={<UserProfile />} />
         <Route path="/user/:userId/medical" element={<MedicalPage />} />
         <Route path="/user/:userId/tripstart" element={<StartTrip />} />
+        {/* ---------------------- */}
+        <Route path="/authoritie/login" element={<AuthLoginPage />} />
+        <Route
+          path="/authoritie/:userId/dashboard"
+          element={<AuthDashboard />}
+        />
       </Routes>
     </BrowserRouter>
   );
