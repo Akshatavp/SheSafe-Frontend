@@ -32,6 +32,8 @@ const UserDashBoard = () => {
 
       if (data) {
         setTripDetails(data.data); // Set the fetched trip data
+
+        localStorage.setItem("trip", data.data._id);
       } else {
         setTripDetails(null); // No active trip
       }
