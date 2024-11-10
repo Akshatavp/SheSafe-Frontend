@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Joi from "joi-browser";
+import { useNavigate } from "react-router-dom";
 
 // Joi schema for form validation, including password fields
 const schema = Joi.object({
@@ -30,7 +31,40 @@ const validate = (values) => {
   return errors;
 };
 
+// API call function
+const signupUser = async (values) => {
+  const { name, email, phone, aadhar, password } = values;
+
+  const response = await fetch("http://localhost:8060/api/user/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: name,
+      email: email,
+      password: password,
+      phone: phone,
+      aadhar: aadhar,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    // Handle successful signup
+    console.log("Signup successful", data);
+    return true; // Successful signup
+  } else {
+    // Handle signup failure
+    console.error("Signup failed", data);
+    return data.data.error || "Signup failed";
+  }
+};
+
 const SignUpForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -42,8 +76,15 @@ const SignUpForm = () => {
         confirmPassword: "",
       }}
       validate={validate}
-      onSubmit={(values) => {
-        console.log("Form Data:", values);
+      onSubmit={async (values) => {
+        const result = await signupUser(values);
+
+        if (result === true) {
+          alert("Signup successful!");
+          navigate("/user/login");
+        } else {
+          alert(result);
+        }
       }}
     >
       {() => (

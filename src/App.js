@@ -6,6 +6,7 @@ import UserDashBoard from "./pages/userpage/UserDashBoard";
 import ContactsPage from "./pages/userpage/ContactsPage";
 import UserProfile from "./pages/userpage/ProfilePage";
 import MedicalPage from "./pages/userpage/Medical";
+import StartTrip from "./pages/userpage/StartTrip";
 
 const Navbar = () => {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/user/:userId/contacts" element={<ContactsPage />} />
         <Route path="/user/:userId/profile" element={<UserProfile />} />
         <Route path="/user/:userId/medical" element={<MedicalPage />} />
+        <Route path="/user/:userId/tripstart" element={<StartTrip />} />
       </Routes>
     </BrowserRouter>
   );

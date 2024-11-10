@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Joi from "joi-browser";
+import { useNavigate } from "react-router-dom";
 
 // Joi schema for login validation
 const schema = Joi.object({
@@ -20,7 +21,35 @@ const validate = (values) => {
   return errors;
 };
 
+// API call function
+const loginUser = async (email, password) => {
+  const response = await fetch("http://localhost:8060/api/user/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    console.log("Login successful", data);
+    localStorage.setItem("profile", JSON.stringify(data.data));
+    localStorage.setItem("token", data.token);
+    return data.data.id;
+  } else {
+    console.error("Login failed", data);
+    return data.message || "Login failed";
+  }
+};
+
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -28,8 +57,17 @@ const LoginForm = () => {
         password: "",
       }}
       validate={validate}
-      onSubmit={(values) => {
-        console.log("Login Data:", values);
+      onSubmit={async (values) => {
+        const { email, password } = values;
+        const userId = await loginUser(email, password);
+
+        if (userId) {
+          // Navigate to the user's dashboard after successful login
+          navigate(`/user/${userId}/dashboard`);
+        } else {
+          // Optionally, handle post-login failure
+          alert("Login failed");
+        }
       }}
     >
       {() => (

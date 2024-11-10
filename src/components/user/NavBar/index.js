@@ -8,7 +8,7 @@ const UserNavbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to={`/user/${userId}/dashboard`}>
           SheSafe
         </Link>
         <button
@@ -24,6 +24,11 @@ const UserNavbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to={`/user/${userId}/dashboard`}>
+                Dashboard
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to={`/user/${userId}/profile`}>
                 Profile

@@ -5,14 +5,7 @@ import UserNavbar from "../../components/user/NavBar";
 const UserProfile = () => {
   const { userId } = useParams();
 
-  // Dummy data for the user profile
-  const userProfile = {
-    username: "Dhanush",
-    email: "dhanush@gmail.com",
-    password: "abc123", // This would ideally be masked or hidden
-    phone: "345234212",
-    aadhar: "345323422",
-  };
+  const userProfile = JSON.parse(localStorage.getItem("profile"));
 
   return (
     <>
