@@ -24,7 +24,7 @@ const validate = (values) => {
 
 // API call function
 const loginUser = async (email, password) => {
-  const response = await fetch(`${AUTH_API}/authoritie/login`, {
+  const response = await fetch(`${AUTH_API}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

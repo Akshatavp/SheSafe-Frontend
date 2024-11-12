@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import SignUpPage from "./pages/userpage/SignupPage";
 import LoginPage from "./pages/userpage/LoginPage";
@@ -9,6 +15,22 @@ import MedicalPage from "./pages/userpage/Medical";
 import StartTrip from "./pages/userpage/StartTrip";
 import AuthLoginPage from "./pages/authoritiepage/AuthLoginPage";
 import AuthDashboard from "./pages/authoritiepage/DashboardPage";
+
+import { useEffect } from "react";
+
+function Signout() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("profile", "");
+    localStorage.setItem("token", "");
+    localStorage.setItem("trip", "");
+
+    navigate("/user/login");
+  }, [navigate]);
+
+  return null;
+}
 
 function App() {
   return (
@@ -24,6 +46,7 @@ function App() {
         <Route path="/user/:userId/profile" element={<UserProfile />} />
         <Route path="/user/:userId/medical" element={<MedicalPage />} />
         <Route path="/user/:userId/tripstart" element={<StartTrip />} />
+        <Route path="/user/:userId/signout" element={<Signout />} />
         {/* ---------------------- */}
         <Route path="/authoritie/login" element={<AuthLoginPage />} />
         <Route
